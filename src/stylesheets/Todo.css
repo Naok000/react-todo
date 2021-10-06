@@ -1,0 +1,18 @@
+.todo {
+  display: flex;
+  align-items: center;
+}
+
+.todo-title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-right: 8px;
+}
+
+.todo-status {
+  padding-right: 12px;
+}
+
+.overray {
+  display: none;
+}
