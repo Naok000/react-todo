@@ -1,7 +1,17 @@
 import React, { useState } from "react";
+import {
+  ChakraProvider,
+  Stack,
+  Heading,
+  Box,
+  Select,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+} from "@chakra-ui/react";
 
 import { TodoList } from "./components/TodoList";
-import "./stylesheets/index.css";
 
 export const App = () => {
   const [todos, setTodos] = useState([]);
@@ -28,46 +38,55 @@ export const App = () => {
     setTitle("");
     setBody("");
   };
+
   return (
-    <>
-      <div className='ui  container'>
-        <h1 className='ui huge header'>My To do</h1>
-        <form action='' className='ui form'>
-          <div className='field'>
-            <label>タイトル</label>
-            <input
-              type='text'
-              name='title'
-              placeholder='Enter a title'
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div className='field'>
-            <label>内容</label>
-            <textarea
-              rows='2'
-              name='body'
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            />
-          </div>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            {statusOptions.map((data, index) => (
-              <option key={index} value={data.value}>
-                {data.label}
-              </option>
-            ))}
-          </select>
-          <button onClick={addTodo} disabled={unCreateTodo} className='addBtn'>
-            Add ToDo
-          </button>
-        </form>
-        <div className='todo-list'>
-          <h2 className='ui header task'>To do task</h2>
+    <ChakraProvider>
+      <Box>
+        <Heading pt={2} m={2}>
+          My To do
+        </Heading>
+        <FormControl p={2} action=''>
+          <Stack>
+            <Box>
+              <FormLabel>タイトル</FormLabel>
+              <Input
+                type='text'
+                name='title'
+                placeholder='Enter a title'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </Box>
+            <Box>
+              <FormLabel>内容</FormLabel>
+              <Input
+                name='body'
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+              />
+            </Box>
+            <Select value={status} onChange={(e) => setStatus(e.target.value)}>
+              {statusOptions.map((data, index) => (
+                <option key={index} value={data.value}>
+                  {data.label}
+                </option>
+              ))}
+            </Select>
+            <Button
+              onClick={addTodo}
+              disabled={unCreateTodo}
+              className='addBtn'>
+              Add ToDo
+            </Button>
+          </Stack>
+        </FormControl>
+        <Box pt={4}>
+          <Heading size='lg' m={2}>
+            To do task
+          </Heading>
           <TodoList todos={todos} setTodos={setTodos} />
-        </div>
-      </div>
-    </>
+        </Box>
+      </Box>
+    </ChakraProvider>
   );
 };
